@@ -33,8 +33,7 @@ async def analyze_insider_route(stock_name: str):
 async def get_events(stock_symbol: str):
     try:
         events = fetch_event_data(stock_symbol)
-        if not events:
-            raise HTTPException(status_code=404, detail="No events found for this stock.")
-        return {"stock": stock_symbol.upper(), "events": events}
+        if events: 
+            return {"stock": stock_symbol.upper(), "events": events}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=404, detail="No events found for this stock.")
