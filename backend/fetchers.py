@@ -17,7 +17,7 @@ def fetch_google_news_json(query="apple stock", number=10):
         "http": f"http://{proxy_user}:{proxy_pass}@{proxy_host}:{proxy_port}",
         "https": f"http://{proxy_user}:{proxy_pass}@{proxy_host}:{proxy_port}",
     }
-
+    
     url = f"https://www.google.com/search?q={query.replace(' ', '+')}&tbm=nws&hl=en&start=number&brd_json=1"
     response = requests.get(url, proxies=proxies, verify=False)
 
@@ -78,7 +78,6 @@ def fetch_insider_data(stock_name):
 
 def fetch_event_data(stock_name):
     news_headlines = []
-
     if not all([proxy_host, proxy_port, proxy_user, proxy_pass]):
         raise ValueError("One or more proxy environment variables are missing.")
 
@@ -87,9 +86,8 @@ def fetch_event_data(stock_name):
         "https": f"http://{proxy_user}:{proxy_pass}@{proxy_host}:{proxy_port}",
     }
     query=f"{stock_name} stock earnings OR launch OR acquisition OR event OR report"
-    url = f"https://www.google.com/search?q={query.replace(' ', '+')}&tbm=nws&hl=en&start=20&brd_json=1"
+    url = f"https://www.google.com/search?q={query.replace(' ', '+')}&tbm=nws&hl=en&start=10&brd_json=1"
     response = requests.get(url, proxies=proxies, verify=False)
-
     if response.status_code == 200:
         data = response.json()
         # Extracting titles and date from the JSON response
